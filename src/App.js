@@ -1,5 +1,6 @@
-//https://gist.githubusercontent.com/camperbot/5a022b72e96c4c9585c32bf6a75f62d9/raw/e3c6895ce42069f0ee7e991229064f167fe8ccdc/quotes.json
 import { useState } from "react";
+import { ReactComponent as TwitterSVG } from "./assets/twitter.svg";
+import { ReactComponent as TumblrSVG } from "./assets/tumblr.svg";
 
 import quotesData from "./data/quotes.json";
 
@@ -18,63 +19,80 @@ const colors = [
   "#73A857",
 ];
 
+function randomizer(array) {
+  const randomElementfromArray =
+    array[Math.floor(Math.random() * array.length)];
+  return randomElementfromArray;
+}
+
+const tempQuotesArray = quotesData.quotes.map((q) => ({
+  ...q,
+  color: randomizer(colors),
+}));
+
 function App() {
-  const randomQuote =
-    quotesData.quotes[Math.floor(Math.random() * quotesData.quotes.length)];
+  const [quote, setQuote] = useState(randomizer(tempQuotesArray));
 
-  const [quote, setQuote] = useState(randomQuote);
-
-  console.log(randomQuote);
-
-  const handleQuoteChange = () => {
-    setQuote(
-      quotesData.quotes[Math.floor(Math.random() * quotesData.quotes.length)]
-    );
+  const handleChangeQuote = () => {
+    setQuote(randomizer(tempQuotesArray));
   };
 
   return (
     <div
       style={{
-        backgroundColor: colors[3],
+        backgroundColor: quote.color,
         width: "100vw",
         height: "100vh",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        transitionProperty: "background-color",
+        transitionDuration: "1s",
       }}
       className="App"
     >
       <div
         style={{
-          width: "50%",
-          borderStyle: "solid",
-          borderRadius: "10px",
-          height: "40%",
-          display: "flex",
-          flexDirection: "column",
+          width: "fit-content",
+          height: "fit-content",
+          backgroundColor: "white",
+          borderRadius: "15px",
+          padding: "1rem",
         }}
         className="quotes-container"
       >
         <div style={{ height: "70%" }} className="quotes">
-          {quote.quote} + + + {quote.author}
+          <p style={{ color: quote.color }}>{quote.quote}</p> + {quote.author}
         </div>
+        <hr />
         <div
           style={{
             height: "30%",
             display: "flex",
             justifyContent: "space-between",
-            padding: "1rem",
           }}
           className="actions"
         >
-          <div
-            className="links"
-            style={{ display: "flex", justifyContent: "space-between" }}
-          >
-            <a style={{ marginRight: "1rem" }}>t</a>
-            <a>tw</a>
+          <div>
+            <a>
+              <TwitterSVG />
+            </a>
+            <a>
+              <TumblrSVG />
+            </a>
           </div>
-          <button onClick={handleQuoteChange}>New Quote</button>
+
+          <button
+            style={{
+              height: "fit-content",
+              backgroundColor: quote.color,
+              color: "white",
+              padding: "1rem",
+            }}
+            onClick={handleChangeQuote}
+          >
+            New Quote
+          </button>
         </div>
       </div>
     </div>
