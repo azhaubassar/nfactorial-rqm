@@ -12,25 +12,15 @@ export default class Actions extends React.Component {
     return (
       <div className="actions">
         <div className="links">
-          <Button
-            color={this.props.color}
-            link={"https://twitter.com"}
-            style={{ marginRight: "1rem" }}
-          >
+          <Button style={{ marginRight: "1rem" }}>
             <TwitterSVG fill={"white"} width={10} height={10} />
           </Button>
-          <Button color={this.props.color} link={"https://tumblr.com"}>
+          <Button>
             <TumblrSVG fill={"white"} width={10} height={10} />
           </Button>
         </div>
 
-        <Button
-          color={this.props.color}
-          link={""}
-          handleGenerateQuote={this.props.handleGenerateQuote}
-        >
-          New Quote
-        </Button>
+        <Button>New Quote</Button>
       </div>
     );
   }

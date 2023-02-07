@@ -3,27 +3,17 @@ import React from "react";
 import "./style.css";
 
 export default class Button extends React.Component {
-  handleClick = (link) => {
-    if (link) {
-      window.location.href = link;
-    }
-
-    if (this.props.handleGenerateQuote) {
-      this.props.handleGenerateQuote();
-    }
-  };
-
   render() {
-    const { children, style, link, color } = this.props;
+    const { children, style } = this.props;
 
     return (
       <button
         style={{
-          backgroundColor: color,
+          backgroundColor: "#16a085",
           ...style,
         }}
         className="button"
-        onClick={() => this.handleClick(link)}
+        onClick={() => console.log("change quote")}
       >
         {children}
       </button>
